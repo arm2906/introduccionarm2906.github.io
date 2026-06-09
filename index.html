@@ -1,0 +1,666 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Herramientas Digitales en el Ámbito Escolar</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #0a0e17;
+    --bg2: #0f1420;
+    --bg3: #141926;
+    --accent: #00d4ff;
+    --accent2: #7b61ff;
+    --accent3: #00ff9d;
+    --text: #e8eaf0;
+    --text-muted: #8891a8;
+    --border: rgba(0, 212, 255, 0.15);
+    --border2: rgba(255,255,255,0.06);
+    --mono: 'Space Mono', monospace;
+    --sans: 'DM Sans', sans-serif;
+  }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    font-size: 15px;
+    line-height: 1.7;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* Subtle grid bg */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(0,212,255,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0,212,255,0.03) 1px, transparent 1px);
+    background-size: 48px 48px;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .wrapper {
+    position: relative;
+    z-index: 1;
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 24px 80px;
+  }
+
+  /* HEADER */
+  header {
+    padding: 56px 0 40px;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 48px;
+  }
+
+  .tag-line {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    color: var(--accent);
+    text-transform: uppercase;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .tag-line::before {
+    content: '';
+    display: inline-block;
+    width: 28px;
+    height: 1px;
+    background: var(--accent);
+  }
+
+  h1.main-title {
+    font-family: var(--mono);
+    font-size: clamp(20px, 4vw, 32px);
+    font-weight: 700;
+    color: #fff;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+    margin-bottom: 32px;
+  }
+  h1.main-title span {
+    color: var(--accent);
+  }
+
+  /* TEAM TABLE */
+  .team-card {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+  }
+
+  .team-card-header {
+    padding: 14px 20px;
+    background: rgba(0,212,255,0.06);
+    border-bottom: 1px solid var(--border);
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    color: var(--accent);
+    text-transform: uppercase;
+  }
+
+  .team-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  .team-table tr {
+    border-bottom: 1px solid var(--border2);
+    transition: background 0.15s;
+  }
+  .team-table tr:last-child { border-bottom: none; }
+  .team-table tr:hover { background: rgba(0,212,255,0.04); }
+  .team-table td {
+    padding: 12px 20px;
+    font-size: 14px;
+  }
+  .team-table td:first-child {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--accent);
+    width: 40px;
+    text-align: center;
+  }
+
+  /* SECTIONS */
+  section {
+    margin-bottom: 40px;
+  }
+
+  .section-label {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    color: var(--accent2);
+    text-transform: uppercase;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .section-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border2);
+  }
+
+  h2.section-title {
+    font-family: var(--mono);
+    font-size: 18px;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 20px;
+    letter-spacing: -0.01em;
+  }
+
+  /* INFO TABLE */
+  .info-table-wrap {
+    background: var(--bg2);
+    border: 1px solid var(--border2);
+    border-radius: 12px;
+    overflow: hidden;
+  }
+
+  .info-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+
+  .info-table thead tr {
+    background: rgba(123,97,255,0.1);
+    border-bottom: 1px solid rgba(123,97,255,0.2);
+  }
+
+  .info-table thead th {
+    padding: 12px 18px;
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    color: var(--accent2);
+    text-transform: uppercase;
+    text-align: left;
+    font-weight: 400;
+  }
+
+  .info-table tbody tr {
+    border-bottom: 1px solid var(--border2);
+    transition: background 0.15s;
+  }
+  .info-table tbody tr:last-child { border-bottom: none; }
+  .info-table tbody tr:hover { background: rgba(255,255,255,0.03); }
+
+  .info-table td {
+    padding: 14px 18px;
+    vertical-align: top;
+    font-size: 14px;
+    color: var(--text);
+    line-height: 1.6;
+  }
+
+  .info-table td.key {
+    font-weight: 600;
+    color: #fff;
+    width: 220px;
+    font-size: 13.5px;
+  }
+
+  .badge {
+    display: inline-block;
+    padding: 2px 10px;
+    border-radius: 20px;
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.08em;
+    margin-bottom: 4px;
+  }
+  .badge-cyan { background: rgba(0,212,255,0.12); color: var(--accent); border: 1px solid rgba(0,212,255,0.2); }
+  .badge-purple { background: rgba(123,97,255,0.12); color: var(--accent2); border: 1px solid rgba(123,97,255,0.2); }
+  .badge-green { background: rgba(0,255,157,0.1); color: var(--accent3); border: 1px solid rgba(0,255,157,0.2); }
+  .badge-red { background: rgba(255,80,80,0.1); color: #ff6b6b; border: 1px solid rgba(255,80,80,0.2); }
+  .badge-amber { background: rgba(255,180,0,0.1); color: #ffbb33; border: 1px solid rgba(255,180,0,0.2); }
+
+  /* Marquee replacement — scroll banner */
+  .marquee-banner {
+    background: rgba(0,212,255,0.05);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    overflow: hidden;
+    margin-bottom: 40px;
+    padding: 14px 0;
+    white-space: nowrap;
+  }
+  .marquee-inner {
+    display: inline-block;
+    animation: scroll-left 18s linear infinite;
+  }
+  .marquee-inner span {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    color: var(--accent);
+    text-transform: uppercase;
+    padding: 0 40px;
+  }
+  @keyframes scroll-left {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+  }
+
+  /* Divider */
+  .divider {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--border), transparent);
+    margin: 48px 0;
+  }
+
+  /* Conclusion box */
+  .conclusion-box {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--accent);
+    border-radius: 0 12px 12px 0;
+    padding: 24px 28px;
+    font-size: 14.5px;
+    color: var(--text-muted);
+    line-height: 1.8;
+  }
+  .conclusion-box strong {
+    color: #fff;
+    font-weight: 600;
+  }
+
+  /* Footer */
+  footer {
+    border-top: 1px solid var(--border2);
+    padding-top: 32px;
+    margin-top: 64px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  footer span {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--text-muted);
+    letter-spacing: 0.05em;
+  }
+  .dot-accent { color: var(--accent); }
+
+  a:link {color: #7b61ff;}
+  a:visited{color: aquamarine;}
+  a:active{color: blue;}
+
+</style>
+</head>
+<body>
+<div class="wrapper">
+
+  <!-- MARQUEE BANNER -->
+  <div class="marquee-banner">
+    <div class="marquee-inner">
+      <span>Herramientas Digitales en el Ámbito Escolar</span>
+      <span>·</span>
+      <span>Proyecto Final</span>
+      <span>·</span>
+      <span>Herramientas Digitales en el Ámbito Escolar</span>
+      <span>·</span>
+      <span>Proyecto Final</span>
+      <span>·</span>
+      <span>Herramientas Digitales en el Ámbito Escolar</span>
+      <span>·</span>
+      <span>Proyecto Final</span>
+      <span>·</span>
+    </div>
+  </div>
+
+  <!-- HEADER -->
+  <header>
+    <div class="tag-line">Proyecto de Aula</div>
+    <h1 class="main-title">Herramientas Digitales<br>en el <span>Ámbito Escolar</span></h1>
+
+    <!-- EQUIPO -->
+    <div class="team-card">
+      <div class="team-card-header">Integrantes del equipo</div>
+      <table class="team-table">
+        <tr><td>01</td><td>Caballero Alonso José Armando</td></tr>
+        <tr><td>02</td><td>Chávez Morales Inez Pamela</td></tr>
+        <tr><td>03</td><td>Olguín Cedillo Gustavo Tonatihu</td></tr>
+        <tr><td>04</td><td>Verdiguel Rocha Santiago</td></tr>
+        <tr><td>05</td><td>Pholenz Alanís Diego</td></tr>
+        <tr><td>06</td><td>Herrera Huerta Emmanuel Alejandro</td></tr>
+      </table>
+    </div>
+  </header>
+
+  <!-- ¿QUÉ ES? -->
+  <section>
+    <div class="section-label">Definición</div>
+    <h2 class="section-title">¿Qué son las herramientas digitales?</h2>
+    <div class="info-table-wrap">
+      <table class="info-table">
+        <thead>
+          <tr><th>Concepto</th><th>Descripción</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="key">Definición</td>
+            <td>Software, plataformas, aplicaciones y programas informáticos accesibles desde dispositivos (computadoras, celulares, tablets) con o sin internet.</td>
+          </tr>
+          <tr>
+            <td class="key">Función principal</td>
+            <td>Facilitar, optimizar y automatizar tareas; mejorar la comunicación y aumentar la productividad en entornos personales, laborales y educativos.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- TIPOS -->
+  <section>
+    <div class="section-label">Clasificación</div>
+    <h2 class="section-title">Tipos de herramientas digitales</h2>
+    <div class="info-table-wrap">
+      <table class="info-table">
+        <thead>
+          <tr><th>#</th><th>Tipo</th><th>Descripción</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span class="badge badge-cyan">01</span></td>
+            <td class="key">Educativas</td>
+            <td>Diseñadas para facilitar la enseñanza y el aprendizaje dinámico.</td>
+          </tr>
+          <tr>
+            <td><span class="badge badge-cyan">02</span></td>
+            <td class="key">De Comunicación</td>
+            <td>Facilitan la conexión síncrona y asíncrona entre personas.</td>
+          </tr>
+          <tr>
+            <td><span class="badge badge-cyan">03</span></td>
+            <td class="key">Productividad y Colaboración</td>
+            <td>Ayudan a organizar, planificar y trabajar en equipo.</td>
+          </tr>
+          <tr>
+            <td><span class="badge badge-cyan">04</span></td>
+            <td class="key">Diseño y Creación de Contenidos</td>
+            <td>Permiten generar materiales visuales sin ser experto.</td>
+          </tr>
+          <tr>
+            <td><span class="badge badge-cyan">05</span></td>
+            <td class="key">Análisis y Utilidades</td>
+            <td>Facilitan el análisis de documentos y gestión de contenidos.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- EJEMPLOS -->
+  <section>
+    <div class="section-label">Aplicaciones prácticas</div>
+    <h2 class="section-title">Ejemplos de uso en la vida cotidiana</h2>
+    <div class="info-table-wrap">
+      <table class="info-table">
+        <thead>
+          <tr><th>Contexto</th><th>Herramienta</th><th>Uso</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span class="badge badge-purple">Escolar</span></td>
+            <td class="key">Google Classroom</td>
+            <td>Gestión de tareas y actividades del aula.</td>
+          </tr>
+          <tr>
+            <td><span class="badge badge-purple">Escolar</span></td>
+            <td class="key">Canva / PowerPoint</td>
+            <td>Creación de presentaciones visuales.</td>
+          </tr>
+          <tr>
+            <td><span class="badge badge-purple">Escolar</span></td>
+            <td class="key">Google Meet / Zoom</td>
+            <td>Facilitan clases virtuales y reuniones.</td>
+          </tr>
+          <tr>
+            <td><span class="badge badge-purple">Escolar</span></td>
+            <td class="key">MyStudyLife</td>
+            <td>Llevar agenda y organización escolar.</td>
+          </tr>
+          <tr>
+            <td><span class="badge badge-purple">Escolar</span></td>
+            <td class="key">CamScanner</td>
+            <td>Convertir apuntes físicos en PDF.</td>
+          </tr>
+          <tr>
+            <td><span class="badge badge-green">Personal</span></td>
+            <td class="key">Google Drive / OneDrive</td>
+            <td>Guardar fotos y documentos en la nube.</td>
+          </tr>
+          <tr>
+            <td><span class="badge badge-green">Personal</span></td>
+            <td class="key">Duolingo</td>
+            <td>Aprendizaje de idiomas de forma interactiva.</td>
+          </tr>
+          <tr>
+            <td><span class="badge badge-green">Personal</span></td>
+            <td class="key">WhatsApp / Instagram</td>
+            <td>Comunicación y conexión social.</td>
+          </tr>
+          <tr>
+            <td><span class="badge badge-green">Personal</span></td>
+            <td class="key">Asistentes virtuales</td>
+            <td>Automatización de tareas cotidianas.</td>
+          </tr>
+          <tr>
+            <td><span class="badge badge-green">Personal</span></td>
+            <td class="key">Notas / Reminders</td>
+            <td>Organizar proyectos y listas de compras.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- VENTAJAS -->
+  <section>
+    <div class="section-label">Análisis</div>
+    <h2 class="section-title">Ventajas</h2>
+    <div class="info-table-wrap">
+      <table class="info-table">
+        <thead>
+          <tr><th>Ventaja</th><th>Descripción</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="key">Personalización del aprendizaje</td>
+            <td>La IA y las plataformas educativas permiten adaptar el ritmo y contenido a las necesidades individuales de cada estudiante.</td>
+          </tr>
+          <tr>
+            <td class="key">Mayor accesibilidad y flexibilidad</td>
+            <td>Acceso a materiales educativos, bibliotecas virtuales y recursos actualizados desde cualquier lugar y en cualquier momento.</td>
+          </tr>
+          <tr>
+            <td class="key">Motivación e interactividad</td>
+            <td>El uso de formatos multimedia, realidad virtual y gamificación hace el aprendizaje más atractivo y mejora la retención de conocimientos.</td>
+          </tr>
+          <tr>
+            <td class="key">Competencias digitales</td>
+            <td>Prepara a los estudiantes para el futuro laboral, fomentando habilidades técnicas esenciales y la creatividad.</td>
+          </tr>
+          <tr>
+            <td class="key">Colaboración mejorada</td>
+            <td>Facilitan el trabajo grupal, la comunicación entre pares y docentes, e incluso la conexión internacional.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- DESVENTAJAS -->
+  <section>
+    <h2 class="section-title">Desventajas</h2>
+    <div class="info-table-wrap">
+      <table class="info-table">
+        <thead>
+          <tr><th>Desventaja</th><th>Descripción</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="key">Distracciones y falta de atención</td>
+            <td>La presencia de celulares y redes sociales puede desviar la atención de los estudiantes, disminuyendo el rendimiento académico.</td>
+          </tr>
+          <tr>
+            <td class="key">Brecha digital y desigualdad</td>
+            <td>La falta de acceso a tecnología de calidad en algunos hogares puede ampliar la desigualdad educativa.</td>
+          </tr>
+          <tr>
+            <td class="key">Reducción de habilidades sociales</td>
+            <td>El aislamiento puede aumentar debido a la menor interacción física, además de posibles problemas en el desarrollo de la atención sostenida.</td>
+          </tr>
+          <tr>
+            <td class="key">Dependencia y ciberseguridad</td>
+            <td>Riesgos de privacidad de datos personales y una dependencia excesiva que puede limitar el pensamiento crítico.</td>
+          </tr>
+          <tr>
+            <td class="key">Información no verificada</td>
+            <td>Exposición a "información basura" o noticias falsas, requiriendo mayor desarrollo de la alfabetización mediática.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ENSEÑANZA-APRENDIZAJE -->
+  <section>
+    <div class="section-label">Impacto pedagógico</div>
+    <h2 class="section-title">Enseñanza-Aprendizaje</h2>
+    <div class="info-table-wrap">
+      <table class="info-table">
+        <thead>
+          <tr><th>Modelo</th><th>Descripción</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="key">Entorno Personal de Aprendizaje</td>
+            <td>Las herramientas digitales han transformado el aula tradicional en un espacio personalizado y dinámico.</td>
+          </tr>
+          <tr>
+            <td class="key">Aprendizaje Activo</td>
+            <td>El alumno deja de ser un receptor pasivo para convertirse en creador de contenido.</td>
+          </tr>
+          <tr>
+            <td class="key">Personalización</td>
+            <td>Los algoritmos permiten que cada estudiante avance a su propio ritmo (aprendizaje adaptativo).</td>
+          </tr>
+          <tr>
+            <td class="key">Ubicuidad</td>
+            <td>El aprendizaje ya no está limitado por las paredes del salón ni por un horario fijo; es constante y fluido.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- IMPACTO SOCIAL -->
+  <section>
+    <div class="section-label">Contexto</div>
+    <h2 class="section-title">Impacto Social</h2>
+    <div class="info-table-wrap">
+      <table class="info-table">
+        <thead>
+          <tr><th>Área</th><th>Impacto</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="key">Educación y Aprendizaje</td>
+            <td>Fomentan el desarrollo de habilidades cognitivas, pensamiento divergente y mejoran el desempeño académico, siendo esenciales para la educación en línea.</td>
+          </tr>
+          <tr>
+            <td class="key">Conectividad y Cultura</td>
+            <td>Facilitan la organización de movimientos sociales a gran escala y la difusión de ideas, redefiniendo la cultura a través de comunidades digitales.</td>
+          </tr>
+          <tr>
+            <td class="key">Trabajo y Productividad</td>
+            <td>El uso de herramientas como Google Drive y Microsoft Teams optimiza el trabajo colaborativo, la comunicación y la productividad.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- RIESGOS Y PREVENCIÓN -->
+  <section>
+    <div class="section-label">Seguridad digital</div>
+    <h2 class="section-title">Riesgos y Prevención</h2>
+    <div class="info-table-wrap">
+      <table class="info-table">
+        <thead>
+          <tr><th>Categoría</th><th>Detalle</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span class="badge badge-red">Riesgo</span></td>
+            <td>Ciberacoso, robo de identidad, noticias falsas (Fake News) y adicción digital.</td>
+          </tr>
+          <tr>
+            <td><span class="badge badge-amber">Prevención</span></td>
+            <td>Usar contraseñas robustas, verificar siempre la fuente de la información, no compartir datos sensibles con desconocidos y establecer horarios saludables de desconexión.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- REFLEXIÓN Y CONCLUSIÓN -->
+  <section>
+    <div class="section-label">Cierre</div>
+    <h2 class="section-title">Reflexión y Conclusión</h2>
+    <div class="conclusion-box">
+      <p style="margin-bottom:16px;"><strong>Reflexión:</strong> El uso responsable implica equilibrio. Debemos ser críticos con lo que consumimos y éticos con lo que compartimos, respetando la privacidad propia y ajena para que la tecnología sea un aliado de nuestra salud mental.</p>
+      <p><strong>Conclusión:</strong> Las herramientas digitales son motores de progreso. Sin embargo, su eficacia depende de la conciencia del usuario. Utilizarlas con responsabilidad y seguridad garantiza que el aprendizaje y la comunicación sigan siendo herramientas de crecimiento humano y no fuentes de riesgo.</p>
+    </div>
+  </section>
+
+  <section>
+    <div style="text-align: center; font-family: Space Mono, DM Sans; color: #00ff9d;"><span style="text-align: center;">Evidencias del proyecto:</span></div>
+    <h2 class="section-title" style="text-align: center;"><a href="Menu Principal.html">Menu Principal</h2></a> 
+  </section>
+
+  <footer>
+    <span>Proyecto Aula <span class="dot-accent">·</span> Herramientas Digitales</span>
+    <span class="dot-accent">// 2026</span>
+  </footer>
+
+</div>
+</body>
+</html>
